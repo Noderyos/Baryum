@@ -3,6 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#define ASSERT(x, s) if(!(x)){fprintf(stderr, "Assertion failed at %s:%d : %s\n", __FILE__, __LINE__, s);exit(-2);}
+
 typedef struct {
     char* key;
     char* data;
@@ -10,28 +12,20 @@ typedef struct {
 
 typedef struct {
     Entry* entries;
-    size_t count;
+    int count;
 } EntryList;
-
-/**
-* enleve les espace de la chaine de caracter passée
-*/
+//TODO: retirer EntryList pour des list classique
 
 void trim(char* str) {
-
     //debut
     while (isspace((unsigned char)*str)) str++;
 
     char* end = str + strlen(str) - 1;
     //fin
     while (end > str && isspace((unsigned char)*end)) end--;
-
     *(end + 1) = '\0';
 }
 
-/**
-* ajoute un entrée a la liste
-*/
 void add_entry(EntryList* list, const char* key, const char* value) {
     list->entries = realloc(list->entries, (list->count + 1) * sizeof(Entry));
     if (!list->entries) {
@@ -45,9 +39,6 @@ void add_entry(EntryList* list, const char* key, const char* value) {
     list->count++;
 }
 
-/**
-* foncttion qui parse une ligne de toml au tour des =
-*/
 void parse_line(const char* line, const char* section, EntryList* list) {
     char* key = NULL;
     char* value = NULL;
@@ -81,9 +72,6 @@ void parse_line(const char* line, const char* section, EntryList* list) {
     }
 }
 
-/**
-* load_config charge dans la liste passée en parametre les valeurs du fichier de config
-*/
 void load_config(const char* filename, EntryList* list) {
     FILE* fp = fopen(filename, "r");
     if (!fp) {
@@ -95,32 +83,34 @@ void load_config(const char* filename, EntryList* list) {
     size_t len = 0;
     char* current_section = NULL;
 
+    int maincheck = 0;
+
     while (getline(&line, &len, fp) != -1) {
         trim(line);
-
         if (line[0] == '\0' || line[0] == '#') {
             // Ignorer les lignes vides ou les commentaires
             continue;
         }
-
         if (line[0] == '[') {
-            // Section (enlever les crochets)
             free(current_section);
             current_section = strndup(line + 1, strlen(line) - 2);
             trim(current_section);
+            if(strcmp(current_section, "main") == 0) {
+                maincheck = 1;
+            }
         } else {
-            // Ligne clé-valeur
             parse_line(line, current_section, list);
         }
     }
 
+    ASSERT(maincheck, "Il manque une section main");
     free(line);
     free(current_section);
     fclose(fp);
 }
 
 void free_entry_list(EntryList* list) {
-    for (size_t i = 0; i < list->count; i++) {
+    for (int i = 0; i < list->count; i++) {
         free(list->entries[i].key);
         free(list->entries[i].data);
     }

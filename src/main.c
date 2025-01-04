@@ -1,15 +1,20 @@
 #include <stdio.h>
-#include "parsing.c"
+#include "section.c"
 
 int main() {
-    EntryList list = {0};
-    load_config("config.toml", &list);
+    EntryList mods[ISLE] = {0};
+    section_main(&mods[0],&mods[1],&mods[2]);
 
     printf("Parsed Entries:\n");
-    for (size_t i = 0; i < list.count; i++) {
-        printf("Key: %s, Data: %s, \n",
-               list.entries[i].key, list.entries[i].data);
+    for (int n = 0; n < ISLE; n++) {
+        printf("%s %d \n","section ", n );
+        for (int i = 0; i < mods[n].count; i++) {
+            printf("Key: %s, Data: %s, \n",
+               mods[n].entries[i].key, mods[n].entries[i].data);
+        }
     }
-    free_entry_list(&list);
+    for(int n = 0; n < ISLE; n++) {
+        free_entry_list(&mods[n]);
+    }
     return 0;
 }
