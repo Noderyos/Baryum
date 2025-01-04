@@ -8,6 +8,7 @@
 
 #include "common.h"
 
+size_t TextSize(Display *display, char *text);
 void DrawFormatedText(Display *display, Window bar, int x, int y, char *text);
 
 #endif

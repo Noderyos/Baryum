@@ -40,9 +40,12 @@ int main() {
     XSelectInput(display, bar, ExposureMask | ButtonPressMask);
     XMapWindow(display, bar);
 
-    while (1) {
+    for(int i = 0; i < 10; i++) {
         XClearWindow(display, bar);
-        DrawFormatedText(display, bar, 10, 15, "{0000FF}Hello {FFFFFF}from {FF0000}Baryum");
+        size_t text_size = TextSize(display, "{0000FF}Hello {-}from {FF0000}Baryum");
+        DrawFormatedText(display, bar, 
+                (DisplayWidth(display, screen) - text_size)/2, 15, 
+                "{0000FF}Hello {-}from {FF0000}Baryum");
         
         while (XPending(display)) {
             XEvent event;
