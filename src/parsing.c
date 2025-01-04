@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define ASSERT(x, s) if(!(x)){fprintf(stderr, "Assertion failed at %s:%d : %s\n", __FILE__, __LINE__, s);exit(-2);}
+#include "common.h"
 
 typedef struct {
     char* key;
