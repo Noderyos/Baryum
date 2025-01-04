@@ -41,6 +41,7 @@ void DrawFormatedText(Display *display, Window bar, int x, int y, char *text) {
             
             if (cursor[0] == '-' && cursor[1] == '}') {
                 render_color = DEFAULT_FOREGROUND;
+                cursor += 2;
             } else {
                 char *end;
                 
