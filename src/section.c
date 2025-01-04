@@ -41,8 +41,8 @@ void section_main(EntryList* left, EntryList* center, EntryList* right) {
     for (int i = 0; i < list.count; i++) {
         for (int n = 0; n < ISLE; n++) { //
             int j = 0;
-            while (section[j][n]) {
-                if (strncmp(list.entries[i].key, section[j][n], strlen(section[j][n])) == 0) {
+            while (section[n][j]) {
+                if (strncmp(list.entries[i].key, section[n][j], strlen(section[n][j])) == 0) {
                     // check if the section name correspond the current section
                     switch(n) {
                         case 0:
