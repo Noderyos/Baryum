@@ -3,7 +3,7 @@
 
 int main() {
     EntryList mods[ISLE] = {0};
-    section_main(&mods[0],&mods[1],&mods[2]);
+    section_main(&mods[0], &mods[1], &mods[2]);
 
     printf("Parsed Entries:\n");
     for (int n = 0; n < ISLE; n++) {
