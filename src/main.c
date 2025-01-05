@@ -57,12 +57,32 @@ int main() {
     while (1) {
         XClearWindow(display, bar);
         
+        char left[1024] = {0}, middle[1024] = {0}, right[1024] = {0};
         char output[1024];
-        get_output("time.sh", "", output);
-        size_t text_size = TextSize(display, output);
-        DrawFormatedText(display, bar, 
-                (DisplayWidth(display, screen) - text_size)/2, 15, output);
+
+        for (size_t i = 0; i < sections[0].size; i++) {
+            get_output(sections[0].modules[i], "", output);
+            strcat(left, output);
+        }
+        for (size_t i = 0; i < sections[1].size; i++) {
+            get_output(sections[1].modules[i], "", output);
+            strcat(middle, output);
+        }
+        for (size_t i = 0; i < sections[2].size; i++) {
+            get_output(sections[2].modules[i], "", output);
+            strcat(right, output);
+        }
+
+        DrawFormatedText(display, bar, 5, 15, left);
         
+        DrawFormatedText(display, bar, 
+                (DisplayWidth(display, screen) - TextSize(display, middle))/2, 15, 
+                middle);
+        DrawFormatedText(display, bar, 
+                DisplayWidth(display, screen) - TextSize(display, right) - 5, 15, 
+                right);
+        
+ 
         while (XPending(display)) {
             XEvent event;
             XNextEvent(display, &event);
