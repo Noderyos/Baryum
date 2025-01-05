@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define ASSERT(x, s) if(!(x)){fprintf(stderr, "Assertion failed at %s:%d : %s\n", __FILE__, __LINE__, s);exit(-2);}
+#include "common.h"
 
 typedef struct {
     char* key;
@@ -18,12 +18,12 @@ typedef struct {
 
 void trim(char* str) {
     //debut
-    while (isspace((unsigned char)*str)) str++;
+    while (isspace(*str)) str++;
 
     char* end = str + strlen(str) - 1;
     //fin
-    while (end > str && isspace((unsigned char)*end)) end--;
-    *(end + 1) = '\0';
+    while (end > str && isspace(*end)) end--;
+    end[1] = '\0';
 }
 
 void add_entry(EntryList* list, const char* key, const char* value) {

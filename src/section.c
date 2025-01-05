@@ -5,7 +5,7 @@
 void section_main(EntryList* left, EntryList* center, EntryList* right) {
     EntryList list = {0};
 
-    char* section[MAX_SECTIONS][ISLE] = {0};
+    char* section[ISLE][MAX_SECTIONS] = {0};
 
     load_config("config.toml", &list);
     for (int i = 0; i < list.count; i++) {
@@ -13,8 +13,8 @@ void section_main(EntryList* left, EntryList* center, EntryList* right) {
         if (strcmp(list.entries[i].key, "main.module-left") == 0) {
             token = strtok(list.entries[i].data, " ");
             int j = 0;
-            while(token) {
-                section[j][0] = token;
+            while (token) {
+                section[0][j] = token;
                 token = strtok(NULL, " ");
                 j++;
             }
@@ -22,8 +22,8 @@ void section_main(EntryList* left, EntryList* center, EntryList* right) {
         if (strcmp(list.entries[i].key, "main.module-center") == 0) {
             token = strtok(list.entries[i].data, " ");
             int j = 0;
-            while(token) {
-                section[j][1] = token;
+            while (token) {
+                section[1][j] = token;
                 token = strtok(NULL, " ");
                 j++;
             }
@@ -31,8 +31,8 @@ void section_main(EntryList* left, EntryList* center, EntryList* right) {
         if (strcmp(list.entries[i].key, "main.module-right") == 0) {
             token = strtok(list.entries[i].data, " ");
             int j = 0;
-            while(token) {
-                section[j][2] = token;
+            while (token) {
+                section[2][j] = token;
                 token = strtok(NULL, " ");
                 j++;
             }
@@ -41,8 +41,8 @@ void section_main(EntryList* left, EntryList* center, EntryList* right) {
     for (int i = 0; i < list.count; i++) {
         for (int n = 0; n < ISLE; n++) { //
             int j = 0;
-            while(section[j][n]) {
-                if (strncmp(list.entries[i].key,section[j][n],strlen(section[j][n])) == 0) {
+            while (section[n][j]) {
+                if (strncmp(list.entries[i].key, section[n][j], strlen(section[n][j])) == 0) {
                     // check if the section name correspond the current section
                     switch(n) {
                         case 0:
