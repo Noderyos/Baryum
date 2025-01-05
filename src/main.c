@@ -9,6 +9,7 @@
 
 #include "draw.h"
 #include "section.c"
+#include "plugins_manager.h"
 
 #define BAR_HEIGHT 20
 #define UPDATE_INTERVAL 1
@@ -29,6 +30,7 @@ int main() {
     for(int n = 0; n < ISLE; n++) {
         free_entry_list(&mods[n]);
     }
+
     Display *display = XOpenDisplay(NULL);
     if (!display) {
         fprintf(stderr, "ERROR: Cannot open display.\n");
