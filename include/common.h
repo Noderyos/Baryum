@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ASSERT(x, s) if(!(x)){fprintf(stderr, "Assertion failed at %s:%d : %s\n", __FILE__, __LINE__, s);exit(-1);}
+#define ASSERT(cond, ...)             \
+    if(!(cond)) {                     \
+        fprintf(stderr, __VA_ARGS__); \
+        exit(1);                      \
+    }
 
 #endif

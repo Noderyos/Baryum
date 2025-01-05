@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #include "draw.h"
-#include "section.c"
+#include "toml/toml.h"
 #include "plugins_manager.h"
 
 #define BAR_HEIGHT 20
@@ -16,20 +16,16 @@
 
 
 int main() {
-    EntryList mods[ISLE] = {0};
-    section_main(&mods[0], &mods[1], &mods[2]);
 
-    printf("Parsed Entries:\n");
-    for (int n = 0; n < ISLE; n++) {
-        printf("%s %d \n","section ", n );
-        for (int i = 0; i < mods[n].count; i++) {
-            printf("Key: %s, Data: %s, \n",
-               mods[n].entries[i].key, mods[n].entries[i].data);
-        }
-    }
-    for(int n = 0; n < ISLE; n++) {
-        free_entry_list(&mods[n]);
-    }
+    struct {
+        size_t size;
+        char **modules;
+    }sections[3];
+
+    toml_parse("config.toml");
+    sections[0].modules = toml_get_str_list("main.module-left", &sections[0].size);
+    sections[1].modules = toml_get_str_list("main.module-center", &sections[1].size);
+    sections[2].modules = toml_get_str_list("main.module-right", &sections[2].size);
 
     Display *display = XOpenDisplay(NULL);
     if (!display) {
@@ -77,7 +73,7 @@ int main() {
 
     XDestroyWindow(display, bar);
     XCloseDisplay(display);
-
+    toml_free();
     return 0;
 }
 
