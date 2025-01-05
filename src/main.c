@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "section.c"
+#include "plugins_manager.h"
 
 int main() {
     EntryList mods[ISLE] = {0};
@@ -16,5 +17,8 @@ int main() {
     for(int n = 0; n < ISLE; n++) {
         free_entry_list(&mods[n]);
     }
+    char output[1024];
+    get_output("time.sh", "",output);
+    printf("%s",output);
     return 0;
 }
