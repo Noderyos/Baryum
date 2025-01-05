@@ -58,12 +58,14 @@ int main() {
     XSelectInput(display, bar, ExposureMask | ButtonPressMask);
     XMapWindow(display, bar);
 
-    for(int i = 0; i < 10; i++) {
+    while (1) {
         XClearWindow(display, bar);
-        size_t text_size = TextSize(display, "{0000FF}Hello {-}from {FF0000}Baryum");
+        
+        char output[1024];
+        get_output("time.sh", "", output);
+        size_t text_size = TextSize(display, output);
         DrawFormatedText(display, bar, 
-                (DisplayWidth(display, screen) - text_size)/2, 15, 
-                "{0000FF}Hello {-}from {FF0000}Baryum");
+                (DisplayWidth(display, screen) - text_size)/2, 15, output);
         
         while (XPending(display)) {
             XEvent event;
