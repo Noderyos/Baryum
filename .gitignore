@@ -1,3 +1,5 @@
 main
 .ccls
 config.toml
+plugins/sound
+src/sound/sound
