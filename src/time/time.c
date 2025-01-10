@@ -4,11 +4,11 @@
 #include <time.h>
 #include <getopt.h>
 
-// Couleurs par défaut
-char *weekday_color = "\033[38;5;253m"; // Gris clair
-char *time_color = "\033[38;5;227m";    // Jaune pâle
-char *date_color = "\033[38;5;253m";    // Gris clair
-char *reset_color = "\033[0m";          // Reset
+// Couleurs par défaut : bleu, blanc, rouge
+char *weekday_color = "\033[38;5;27m";  // Bleu
+char *time_color = "\033[38;5;255m";   // Blanc
+char *date_color = "\033[38;5;196m";  // Rouge
+char *reset_color = "\033[0m";       // Reset
 
 // Fonction pour récupérer la date et l'heure actuelle
 void custom_time(int show_weekday, int show_time, int show_date, int order[]) {
@@ -42,6 +42,7 @@ void custom_time(int show_weekday, int show_time, int show_date, int order[]) {
 
 // Fonction pour définir une couleur
 void set_color(char **color_var, const char *color_code) {
+    free(*color_var);
     *color_var = strdup(color_code);
 }
 
@@ -65,20 +66,8 @@ int main(int argc, char *argv[]) {
                 }
                 break;
             }
-            case 'c': { // Personnaliser les couleurs
-                char *token = strtok(optarg, ",");
-                int i = 0;
-                while (token != NULL) {
-                    if (i == 0) set_color(&weekday_color, token); // Couleur de WEEKDAY
-                    if (i == 1) set_color(&time_color, token);    // Couleur de TIME
-                    if (i == 2) set_color(&date_color, token);    // Couleur de DATE
-                    token = strtok(NULL, ",");
-                    i++;
-                }
-                break;
-            }
             default:
-                fprintf(stderr, "Usage: %s [-w] [-t] [-d] [-o order] [-c colors]\n", argv[0]);
+                fprintf(stderr, "Usage: %s [-w] [-t] [-d] [-o order] \n", argv[0]);
                 exit(EXIT_FAILURE);
         }
     }
@@ -86,9 +75,10 @@ int main(int argc, char *argv[]) {
     custom_time(show_weekday, show_time, show_date, order);
 
     // Libération des couleurs personnalisées
-    if (weekday_color != NULL) free(weekday_color);
-    if (time_color != NULL) free(time_color);
-    if (date_color != NULL) free(date_color);
+    free(weekday_color);
+    free(time_color);
+    free(date_color);
 
     return 0;
 }
+
