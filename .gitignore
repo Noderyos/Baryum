@@ -1,7 +1,7 @@
 main
 .ccls
 config.toml
-plugins/sound
-plugins/time
-src/sound/sound
-src/time/time
+/plugins/sound
+/plugins/time
+/src/sound/sound
+/src/time/time
