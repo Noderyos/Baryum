@@ -19,13 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8afb1a91-0b72-4beb-93a5-646008e33303" name="Changes" comment="sound">
-      <change afterPath="$PROJECT_DIR$/src/draw_type.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/time/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/time/time.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sound/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/sound/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sound/sound.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/sound/sound.c" afterDir="false" />
-    </list>
+    <list default="true" id="8afb1a91-0b72-4beb-93a5-646008e33303" name="Changes" comment="sound" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,14 +168,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Makefile Target.all (3)" />
+      <item itemvalue="Makefile Target.all (1)" />
+      <item itemvalue="Makefile Target.all (2)" />
+      <item itemvalue="Makefile Target.all" />
       <item itemvalue="Native Application.GNUmakefile" />
       <item itemvalue="Native Application.Makefile" />
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.makefile" />
-      <item itemvalue="Makefile Target.all (1)" />
-      <item itemvalue="Makefile Target.all (2)" />
-      <item itemvalue="Makefile Target.all (3)" />
-      <item itemvalue="Makefile Target.all" />
     </list>
     <recent_temporary>
       <list>
@@ -211,6 +205,7 @@
       <workItem from="1736374192066" duration="2196000" />
       <workItem from="1736376587195" duration="6466000" />
       <workItem from="1736467040924" duration="445000" />
+      <workItem from="1736601794370" duration="386000" />
     </task>
     <task id="LOCAL-00001" summary="parsing of toml file">
       <option name="closed" value="true" />
