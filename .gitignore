@@ -1,8 +1,10 @@
 main
 .ccls
 config.toml
-/plugins/sound
-/plugins/time
-/src/sound/sound
-/src/time/time
+plugins/sound
+plugins/time
+src/sound/sound
+src/time/time
+src/current_app/active
+src/i3/i3plugin
 
