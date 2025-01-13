@@ -3,7 +3,7 @@ CFLAGS=-Wall -Wextra -Werror -Iinclude -I/usr/include/freetype2 -I/usr/include/l
 LDFLAGS=-lX11 -lXft
 NAME_PLUGIN=time
 
-all: $(NAME_PLUGIN).c
+all: $(NAME_PLUGIN).c concat.c
 	$(CC) $(CFLAGS) -o $(NAME_PLUGIN) $? $(LDFLAGS)
 
 clean:
