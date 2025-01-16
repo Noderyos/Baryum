@@ -12,6 +12,6 @@ typedef struct {
     int done; 
 } sink_info_t;
 
-int *get_volume(int *channel_count); //retourne le volume et le nombre de sortie de la sortie par défault de pulse audio
+int *get_volume(int *channel_count);
 
 #endif
