@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source plugins/colors.sh
+
+echo -n "${bright_blue} Hello ${RESET}from ${bright_red}Baryum"

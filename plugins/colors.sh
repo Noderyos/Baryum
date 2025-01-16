@@ -15,4 +15,3 @@ bright_blue={ffcc20}
 bright_purple={ddd251}
 bright_aqua={f1b822}
 RESET={-}
-

@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #include "draw.h"
-#include "section.c"
+#include "toml/toml.h"
 #include "plugins_manager.h"
 
 #define BAR_HEIGHT 20
@@ -16,20 +16,16 @@
 
 
 int main() {
-    EntryList mods[ISLE] = {0};
-    section_main(&mods[0], &mods[1], &mods[2]);
 
-    printf("Parsed Entries:\n");
-    for (int n = 0; n < ISLE; n++) {
-        printf("%s %d \n","section ", n );
-        for (int i = 0; i < mods[n].count; i++) {
-            printf("Key: %s, Data: %s, \n",
-               mods[n].entries[i].key, mods[n].entries[i].data);
-        }
-    }
-    for(int n = 0; n < ISLE; n++) {
-        free_entry_list(&mods[n]);
-    }
+    struct {
+        size_t size;
+        char **modules;
+    }sections[3];
+
+    toml_parse("config.toml");
+    sections[0].modules = toml_get_str_list("main.module-left", &sections[0].size);
+    sections[1].modules = toml_get_str_list("main.module-center", &sections[1].size);
+    sections[2].modules = toml_get_str_list("main.module-right", &sections[2].size);
 
     Display *display = XOpenDisplay(NULL);
     if (!display) {
@@ -58,13 +54,35 @@ int main() {
     XSelectInput(display, bar, ExposureMask | ButtonPressMask);
     XMapWindow(display, bar);
 
-    for(int i = 0; i < 10; i++) {
+    while (1) {
         XClearWindow(display, bar);
-        size_t text_size = TextSize(display, "{0000FF}Hello {-}from {FF0000}Baryum");
-        DrawFormatedText(display, bar, 
-                (DisplayWidth(display, screen) - text_size)/2, 15, 
-                "{0000FF}Hello {-}from {FF0000}Baryum");
         
+        char left[1024] = {0}, middle[1024] = {0}, right[1024] = {0};
+        char output[1024];
+
+        for (size_t i = 0; i < sections[0].size; i++) {
+            get_output(sections[0].modules[i], "", output);
+            strcat(left, output);
+        }
+        for (size_t i = 0; i < sections[1].size; i++) {
+            get_output(sections[1].modules[i], "", output);
+            strcat(middle, output);
+        }
+        for (size_t i = 0; i < sections[2].size; i++) {
+            get_output(sections[2].modules[i], "", output);
+            strcat(right, output);
+        }
+
+        DrawFormatedText(display, bar, 5, 15, left);
+        
+        DrawFormatedText(display, bar, 
+                (DisplayWidth(display, screen) - TextSize(display, middle))/2, 15, 
+                middle);
+        DrawFormatedText(display, bar, 
+                DisplayWidth(display, screen) - TextSize(display, right) - 5, 15, 
+                right);
+        
+ 
         while (XPending(display)) {
             XEvent event;
             XNextEvent(display, &event);
@@ -75,7 +93,7 @@ int main() {
 
     XDestroyWindow(display, bar);
     XCloseDisplay(display);
-
+    toml_free();
     return 0;
 }
 
