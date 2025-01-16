@@ -4,7 +4,7 @@ LDFLAGS=
 NAME_PLUGIN=i3plugin
 
 all: $(NAME_PLUGIN).c
-	$(CC) $(CFLAGS) -o $(NAME_PLUGIN) $? $(LDFLAGS)
+	$(CC) $(CFLAGS) -o ../../plugins/$(NAME_PLUGIN) $? $(LDFLAGS)
 
 clean:
 	rm $(NAME_PLUGIN)

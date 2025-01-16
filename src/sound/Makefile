@@ -4,7 +4,7 @@ LDFLAGS=-lpulse
 
 
 all: sound.c pulse_interface.c
-	$(CC) $(CFLAGS) -o sound $? $(LDFLAGS)
+	$(CC) $(CFLAGS) -o ../../plugins/sound $? $(LDFLAGS)
 
 clean:
 	rm sound
