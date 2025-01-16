@@ -44,26 +44,22 @@ int main(int argc, char *argv[]) {
     int opt;
     int cpt = 0;
     while ((opt = getopt(argc, argv, "wtd:")) != -1) {
-	if(cpt > 3){
-	    fprintf(stderr, 
-		"Usage: %s [-w] [-t] [-d]  \n", argv[0]);
+	    if(cpt > 3){
+	        fprintf(stderr, 
+		    "Usage: %s [-w] [-t] [-d]  \n", argv[0]);
     	    exit(EXIT_FAILURE);
 
-	}
-	order[cpt] = (char)opt;	
-	cpt++;
+	    }
+	    order[cpt] = (char)opt;	
+	    cpt++;
     }
     if(cpt == 0){
-	for(int i; i < 3; i++){
-	    order[i] = i;
-	}
-     }	
+	    for(int i; i < 3; i++){
+	        order[i] = i;
+	    }
+    }	
     custom_time(order);
 
-    free(weekday_color);
-    free(time_color);
-    free(date_color);
-    free(reset_color);
     return 0;
 }
 

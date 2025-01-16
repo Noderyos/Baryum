@@ -14,7 +14,6 @@ static void context_state_callback(pa_context *c, void *userdata) {
     }
 }
 
-// Server info callback
 static void server_info_callback(pa_context *c, const pa_server_info *i, void *userdata) {
     (void)c;
     sink_info_t *info = (sink_info_t *)userdata;
@@ -27,7 +26,6 @@ static void server_info_callback(pa_context *c, const pa_server_info *i, void *u
     info->done = 1; // Indicate operation completion
 }
 
-// Sink info callback
 static void sink_info_callback(pa_context *c, const pa_sink_info *i, int eol, void *userdata) {
     (void)c;
     sink_info_t *info = (sink_info_t *)userdata;
@@ -38,11 +36,10 @@ static void sink_info_callback(pa_context *c, const pa_sink_info *i, int eol, vo
     }
 
     if (i) {
-        info->sink_volume = i->volume; // Copy the sink volume information
+        info->sink_volume = i->volume;
     }
 }
 
-// Function to get sink volume
 int *get_volume(int *channel_count) {
     pa_mainloop *ml = pa_mainloop_new();
     if (!ml) {
