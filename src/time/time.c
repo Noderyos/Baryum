@@ -60,9 +60,9 @@ int main(int argc, char *argv[]) {
 	    cpt++;
     }
     if(cpt == 0){
-	    for(int i; i < 3; i++){
-	        order[i] = i;
-	    }
+	    order[0] = 'w';
+	    order[1] = 't';
+	    order[2] = 'd';
     }	
     custom_time(order);
 
