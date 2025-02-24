@@ -1,5 +1,6 @@
 main
 .ccls
+TODO.rmd
 config.toml
 plugins/sound
 plugins/time
