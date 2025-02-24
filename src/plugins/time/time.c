@@ -42,7 +42,7 @@ void custom_time(char order[]) {
         }
     }
     strcat(output, reset_color);
-    printf("%s\n", output);
+    printf("%s", output);
 }
 
 int main(int argc, char *argv[]) {

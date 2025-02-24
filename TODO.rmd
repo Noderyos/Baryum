@@ -1,0 +1,11 @@
+# BUG d'affichage 
+    - avec la config : 
+        ```toml
+        [main]
+            module-left = ["i3plugin"]
+            module-center = ["time", "i3plugin"]
+            module-right = ["time"]
+        ```
+        sur mon écran ou le module I3 n'est pas afficher au milieu et fais buger l'affichage
+    -  avec time ou i3 je pense que {-} est display (il devrait pas)
+

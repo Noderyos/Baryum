@@ -5,7 +5,7 @@
 #define RED "{ff0000}"
 #define RESET "{-}"
 
-int main() {
+int main(void) {
     FILE *fp;
     char buffer[1024];
     char *active_workspace = NULL;
@@ -31,7 +31,6 @@ int main() {
         }
     }
 
-    printf("\n");
     pclose(fp);
     return 0;
 }

@@ -195,8 +195,9 @@ void toml_parse(char *filename) {
     free(text);
 }
 
-void toml_free() {
+void toml_free(void) {
     for (size_t i = 0; i < key_count; i++){
+
         if (keys[i].type == TOML_NUMBER || keys[i].type == TOML_STRING || keys[i].type == TOML_INT_LIST) {
             free(keys[i].value);
         } else if (keys[i].type == TOML_STR_LIST) {

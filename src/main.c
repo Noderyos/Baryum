@@ -15,7 +15,7 @@
 #define UPDATE_INTERVAL 1
 
 
-int main() {
+int main(void) {
 
     struct {
         size_t size;

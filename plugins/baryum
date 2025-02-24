@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo -n "{0000ff} Hello {-}from {ff0000}Baryum"
