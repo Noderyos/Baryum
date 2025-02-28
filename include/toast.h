@@ -8,7 +8,9 @@
 
 #include <wchar.h>
 #include <time.h> 
+#include <pthread.h>
 #include <unistd.h>
+
 
 // create toast with specified duration, and text
 void create_toast(Display *display,
