@@ -1,5 +1,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#include <X11/extensions/Xcomposite.h>
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -10,12 +11,15 @@
 #include "draw.h"
 #include "toml/toml.h"
 #include "plugins_manager.h"
+#include "toast.h"
 
 #define BAR_HEIGHT 20
 #define UPDATE_INTERVAL 1
 
+#define POPUP_WIDTH 500
+#define POPUP_HEIGHT 200
 
-int main(void) {
+int main(int argc, char** argv) {
 
     struct {
         size_t size;
@@ -41,7 +45,7 @@ int main(void) {
             DisplayWidth(display, screen), BAR_HEIGHT,
             0, 0x000000, 0x101010
     );
-    
+
     // Set window type to be a dock
     Atom wm_state = XInternAtom(display, "_NET_WM_WINDOW_TYPE", False);
     Atom wm_state_dock = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DOCK", False);
@@ -53,6 +57,12 @@ int main(void) {
 
     XSelectInput(display, bar, ExposureMask | ButtonPressMask);
     XMapWindow(display, bar);
+
+    if(argc > 1){
+        if(strcmp(argv[1], "t") == 0){
+            create_toast(display, screen, POPUP_HEIGHT, POPUP_WIDTH, BAR_HEIGHT, 10, "hello world");
+        }
+    }
 
     while (1) {
         XClearWindow(display, bar);
@@ -68,7 +78,7 @@ int main(void) {
             get_output(sections[1].modules[i], "", output);
             strcat(middle, output);
         }
-        for (size_t i = 0; i < sections[2].size; i++) {
+       for (size_t i = 0; i < sections[2].size; i++) {
             get_output(sections[2].modules[i], "", output);
             strcat(right, output);
         }
